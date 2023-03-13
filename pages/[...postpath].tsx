@@ -13,16 +13,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	const fbclid = ctx.query.fbclid;
 
 	// redirect if facebook is the referer or request contains fbclid
-	if (referringURL?.includes('facebook.com') || fbclid) {
-		return {
+	 
 			redirect: {
 				permanent: false,
 				destination: `${
 					endpoint.replace(/(\/graphql\/)/, '/') + encodeURI(path as string)
 				}`,
-			},
-		};
-	}
+			}
+		
 	const query = gql`
 		{
 			post(id: "/${path}/", idType: URI) {
@@ -91,7 +89,7 @@ const Post: React.FC<PostProps> = (props) => {
 				<meta property="og:site_name" content={host.split('.')[0]} />
 				<meta property="article:published_time" content={post.dateGmt} />
 				<meta property="article:modified_time" content={post.modifiedGmt} />
-				<meta property="og:image" content={`https://${host}/${path}`} />
+				 
 				<meta
 					property="og:image:alt"
 					content={post.featuredImage.node.altText || post.title}
